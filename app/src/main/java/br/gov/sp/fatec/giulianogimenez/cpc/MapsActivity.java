@@ -7,6 +7,8 @@ import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -14,12 +16,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
     private GoogleMap mMap;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) throws SecurityException {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -28,21 +30,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+        LatLng loc = new LatLng(latitude, longitude);
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15.5f));
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
         try{
-            googleMap.setIndoorEnabled(true);
-            googleMap.setMyLocationEnabled(true);
+            mMap.setIndoorEnabled(true);
+            mMap.setMyLocationEnabled(true);
             LocationManager locationManager = (LocationManager)
                     getSystemService(Context.LOCATION_SERVICE);
             Criteria criteria = new Criteria();
@@ -53,7 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             double longitude = location.getLongitude();
 
             LatLng loc = new LatLng(latitude, longitude);
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15.5f));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15.5f));
         }
         catch(SecurityException ex) {
             ex.printStackTrace();
