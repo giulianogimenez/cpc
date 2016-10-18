@@ -13,7 +13,9 @@ public class Preco extends SQLiteOpenHelper {
             PrecoInfo.PRC_ID + " INTEGER PRIMARY KEY," +
             PrecoInfo.PRC_VALOR + DatabaseInfo.DECIMAL_TYPE + DatabaseInfo.COMMA_SEP +
             PrecoInfo.PRC_DATACADASTRO + DatabaseInfo.DATETIME_TYPE + DatabaseInfo.COMMA_SEP +
-            PrecoInfo.PRC_TIPOCOMBUSTIVEL + DatabaseInfo.TEXT_TYPE + ");";
+            PrecoInfo.PRC_TIPOCOMBUSTIVEL + DatabaseInfo.TEXT_TYPE + DatabaseInfo.COMMA_SEP +
+            PrecoInfo.EST_ID + DatabaseInfo.INT_TYPE + DatabaseInfo.COMMA_SEP +
+            "FOREIGN KEY(" + PrecoInfo.EST_ID + ") REFERENCES " +  Estabelecimento.EstabelecimentoInfo.TABLE_NAME + "(" + Estabelecimento.EstabelecimentoInfo.EST_ID + "));";
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + PrecoInfo.TABLE_NAME;
 
@@ -38,5 +40,6 @@ public class Preco extends SQLiteOpenHelper {
         public final static String PRC_VALOR = "prc_valor";
         public final static String PRC_DATACADASTRO = "prc_datacadastro";
         public final static String PRC_TIPOCOMBUSTIVEL = "prc_tipocombustivel";
+        public static final String EST_ID = "est_id";
     }
 }
