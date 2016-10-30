@@ -1,10 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
     compileSdkVersion 23
     buildToolsVersion '24.0.1'
 
     defaultConfig {
+        multiDexEnabled true
         applicationId "br.gov.sp.fatec.giulianogimenez.cpc"
         minSdkVersion 18
         targetSdkVersion 23
