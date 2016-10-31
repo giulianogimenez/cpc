@@ -2,6 +2,7 @@ package br.gov.sp.fatec.giulianogimenez.cpc.controller;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import br.gov.sp.fatec.giulianogimenez.cpc.model.Estabelecimento;
@@ -47,5 +48,24 @@ public class EstabelecimentoController {
             return "Erro ao inserir registro";
         else
             return "Registro Inserido com sucesso";
+    }
+
+    public Cursor carregaDados(){
+        Cursor cursor;
+        String[] campos =  {Estabelecimento.EstabelecimentoInfo.EST_ID, Estabelecimento.EstabelecimentoInfo.EST_BANDEIRA,
+                Estabelecimento.EstabelecimentoInfo.EST_NOME, Estabelecimento.EstabelecimentoInfo.EST_LAT, Estabelecimento.EstabelecimentoInfo.EST_LONG,
+                Estabelecimento.EstabelecimentoInfo.EST_ALIMENCACAO, Estabelecimento.EstabelecimentoInfo.EST_BORRACHEIRO,
+                Estabelecimento.EstabelecimentoInfo.EST_CAIXAELETRONICO, Estabelecimento.EstabelecimentoInfo.EST_CONVENIENCIA,
+                Estabelecimento.EstabelecimentoInfo.EST_LAVARAPIDO, Estabelecimento.EstabelecimentoInfo.EST_MECANICO,
+                Estabelecimento.EstabelecimentoInfo.EST_SEMPARAR, Estabelecimento.EstabelecimentoInfo.EST_TROCAOLEO,
+                Estabelecimento.EstabelecimentoInfo.EST_VIAFACIL};
+        db = estabelecimento.getReadableDatabase();
+        cursor = db.query(Estabelecimento.EstabelecimentoInfo.TABLE_NAME, campos, null, null, null, null, null, null);
+
+        if(cursor!=null){
+            cursor.moveToFirst();
+        }
+        db.close();
+        return cursor;
     }
 }
