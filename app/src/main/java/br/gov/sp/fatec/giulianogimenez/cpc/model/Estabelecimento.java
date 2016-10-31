@@ -12,7 +12,7 @@ import br.gov.sp.fatec.giulianogimenez.cpc.DAO.DatabaseInfo;
  */
 public final class Estabelecimento extends SQLiteOpenHelper {
     private static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + EstabelecimentoInfo.TABLE_NAME + " (" +
-            EstabelecimentoInfo.EST_ID + DatabaseInfo.INT_TYPE + " PRIMARYKEY AUTOINCREMENT " + DatabaseInfo.COMMA_SEP +
+            EstabelecimentoInfo.EST_ID + DatabaseInfo.INT_TYPE + " PRIMARYKEY " + DatabaseInfo.COMMA_SEP +
             EstabelecimentoInfo.EST_NOME + DatabaseInfo.TEXT_TYPE + DatabaseInfo.COMMA_SEP +
             EstabelecimentoInfo.EST_ENDERECO + DatabaseInfo.TEXT_TYPE + DatabaseInfo.COMMA_SEP +
             EstabelecimentoInfo.EST_LAT + DatabaseInfo.TEXT_TYPE + DatabaseInfo.COMMA_SEP +
