@@ -68,4 +68,10 @@ public class EstabelecimentoController {
         db.close();
         return cursor;
     }
+
+    public void limpaBase() {
+        db = estabelecimento.getWritableDatabase();
+        db.delete(Estabelecimento.EstabelecimentoInfo.TABLE_NAME, null ,null);
+        db.close();
+    }
 }

@@ -97,16 +97,19 @@ public class MapsActivity extends AppCompatActivity implements
 
         EstabelecimentoController estabelecimentoController = new EstabelecimentoController(getBaseContext());
         Cursor postos = estabelecimentoController.carregaDados();
-        if(postos.getCount() == 0) {
-            estabelecimentoController.inserir("Impéria",
-                    "Av. Dr. João Batista de Souza Soares, 2105 - Cidade Morumbi, São José dos Campos - SP, 12236-660",
-                    "-23.242444", "-45.906196",
-                    true, true, true, true, false, false, false, false, false, "Shell");
-            postos = estabelecimentoController.carregaDados();
+        if(postos.getCount() > 0) {
+            Toast.makeText(this,"Limpando dados.",Toast.LENGTH_SHORT).show();
+            estabelecimentoController.limpaBase();
         }
+        estabelecimentoController.inserir("Impéria",
+                "Av. Dr. João Batista de Souza Soares, 2105 - Cidade Morumbi, São José dos Campos - SP, 12236-660",
+                "-23.242443", "-45.906174",
+                true, true, true, true, false, false, false, false, false, "Shell");
+        postos = estabelecimentoController.carregaDados();
+        postos.moveToFirst();
         mGoogleMap.addMarker(new MarkerOptions().
-                position(new LatLng((float)postos.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_LAT),
-                        (float)postos.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_LONG))));
+                position(new LatLng(postos.getFloat(postos.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_LAT)),
+                        postos.getFloat(postos.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_LONG)))));
     }
 
     @Override
