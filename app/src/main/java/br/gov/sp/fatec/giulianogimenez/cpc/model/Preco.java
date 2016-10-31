@@ -1,8 +1,10 @@
-package br.gov.sp.fatec.giulianogimenez.cpc;
+package br.gov.sp.fatec.giulianogimenez.cpc.model;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import br.gov.sp.fatec.giulianogimenez.cpc.DAO.DatabaseInfo;
 
 /**
  * Created by giuliano.gimenez on 30/09/2016.

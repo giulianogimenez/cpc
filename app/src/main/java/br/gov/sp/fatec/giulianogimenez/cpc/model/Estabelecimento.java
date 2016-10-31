@@ -1,15 +1,18 @@
-package br.gov.sp.fatec.giulianogimenez.cpc;
+package br.gov.sp.fatec.giulianogimenez.cpc.model;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+import br.gov.sp.fatec.giulianogimenez.cpc.DAO.DatabaseInfo;
+
 /**
  * Created by giuliano.gimenez on 30/09/2016.
  */
 public final class Estabelecimento extends SQLiteOpenHelper {
     private static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + EstabelecimentoInfo.TABLE_NAME + " (" +
+            EstabelecimentoInfo.EST_ID + DatabaseInfo.INT_TYPE + " PRIMARYKEY " + DatabaseInfo.COMMA_SEP +
             EstabelecimentoInfo.EST_NOME + DatabaseInfo.TEXT_TYPE + DatabaseInfo.COMMA_SEP +
             EstabelecimentoInfo.EST_ENDERECO + DatabaseInfo.TEXT_TYPE + DatabaseInfo.COMMA_SEP +
             EstabelecimentoInfo.EST_LAT + DatabaseInfo.TEXT_TYPE + DatabaseInfo.COMMA_SEP +

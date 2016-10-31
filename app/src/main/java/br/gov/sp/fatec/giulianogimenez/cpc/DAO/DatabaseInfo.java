@@ -1,4 +1,4 @@
-package br.gov.sp.fatec.giulianogimenez.cpc;
+package br.gov.sp.fatec.giulianogimenez.cpc.DAO;
 
 /**
  * Created by giuliano.gimenez on 30/09/2016.

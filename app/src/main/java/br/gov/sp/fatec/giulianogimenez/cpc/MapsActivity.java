@@ -1,6 +1,7 @@
 package br.gov.sp.fatec.giulianogimenez.cpc;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -23,6 +24,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import br.gov.sp.fatec.giulianogimenez.cpc.controller.EstabelecimentoController;
+import br.gov.sp.fatec.giulianogimenez.cpc.model.Estabelecimento;
 
 public class MapsActivity extends AppCompatActivity implements
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -91,6 +95,18 @@ public class MapsActivity extends AppCompatActivity implements
         mGoogleMap.animateCamera(CameraUpdateFactory
                 .newCameraPosition(cameraPosition));
 
+        EstabelecimentoController estabelecimentoController = new EstabelecimentoController(getBaseContext());
+        Cursor postos = estabelecimentoController.carregaDados();
+        if(postos.getCount() == 0) {
+            estabelecimentoController.inserir("Impéria",
+                    "Av. Dr. João Batista de Souza Soares, 2105 - Cidade Morumbi, São José dos Campos - SP, 12236-660",
+                    "-23.242444", "-45.906196",
+                    true, true, true, true, false, false, false, false, false, "Shell");
+            postos = estabelecimentoController.carregaDados();
+        }
+        mGoogleMap.addMarker(new MarkerOptions().
+                position(new LatLng((float)postos.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_LAT),
+                        (float)postos.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_LONG))));
     }
 
     @Override
