@@ -8,6 +8,8 @@ import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -39,6 +41,36 @@ public class MapsActivity extends AppCompatActivity implements
     GoogleMap mGoogleMap;
     SupportMapFragment mFragment;
     Marker currLocationMarker;
+    class MyInfoWindowAdapter implements GoogleMap.InfoWindowAdapter{
+
+        private final View myContentsView;
+
+        MyInfoWindowAdapter(){
+            myContentsView = getLayoutInflater().inflate(R.layout.infoview, null);
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+            EstabelecimentoController estabelecimentoController = new EstabelecimentoController(getBaseContext());
+            Cursor c = estabelecimentoController.carregaPorNome(marker.getTitle());
+            if(c.getCount() > 0) {
+                c.moveToFirst();
+                TextView tvTitle = ((TextView)myContentsView.findViewById(R.id.title));
+                tvTitle.setText(c.getString(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_NOME)));
+                TextView tvSnippet = ((TextView)myContentsView.findViewById(R.id.snippet));
+                tvSnippet.setText(c.getString(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_ENDERECO)));
+
+            }
+            return myContentsView;
+        }
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+    }
 
 
     @Override
@@ -138,14 +170,16 @@ public class MapsActivity extends AppCompatActivity implements
             } else if(bandeira.equals("Ipiranga")) {
                 mko.icon(BitmapDescriptorFactory.fromResource(R.drawable.ipiranga_pin));
             }
+            mko.title(postos.getString(postos.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_NOME)));
+            mGoogleMap.setInfoWindowAdapter(new MyInfoWindowAdapter());
             mGoogleMap.addMarker(mko);
             postos.moveToNext();
             if(postos.isAfterLast()) {
                 break;
             }
         }
-
     }
+
 
     @Override
     public void onConnectionSuspended(int i) {

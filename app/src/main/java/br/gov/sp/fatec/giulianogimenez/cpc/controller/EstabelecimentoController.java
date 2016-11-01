@@ -53,7 +53,8 @@ public class EstabelecimentoController {
     public Cursor carregaDados(){
         Cursor cursor;
         String[] campos =  {Estabelecimento.EstabelecimentoInfo.EST_ID, Estabelecimento.EstabelecimentoInfo.EST_BANDEIRA,
-                Estabelecimento.EstabelecimentoInfo.EST_NOME, Estabelecimento.EstabelecimentoInfo.EST_LAT, Estabelecimento.EstabelecimentoInfo.EST_LONG,
+                Estabelecimento.EstabelecimentoInfo.EST_NOME, Estabelecimento.EstabelecimentoInfo.EST_ENDERECO,
+                Estabelecimento.EstabelecimentoInfo.EST_LAT, Estabelecimento.EstabelecimentoInfo.EST_LONG,
                 Estabelecimento.EstabelecimentoInfo.EST_ALIMENCACAO, Estabelecimento.EstabelecimentoInfo.EST_BORRACHEIRO,
                 Estabelecimento.EstabelecimentoInfo.EST_CAIXAELETRONICO, Estabelecimento.EstabelecimentoInfo.EST_CONVENIENCIA,
                 Estabelecimento.EstabelecimentoInfo.EST_LAVARAPIDO, Estabelecimento.EstabelecimentoInfo.EST_MECANICO,
@@ -73,5 +74,26 @@ public class EstabelecimentoController {
         db = estabelecimento.getWritableDatabase();
         db.delete(Estabelecimento.EstabelecimentoInfo.TABLE_NAME, null ,null);
         db.close();
+    }
+
+    public Cursor carregaPorNome(String title) {
+        Cursor cursor;
+        String where = Estabelecimento.EstabelecimentoInfo.EST_NOME + "='" + title + "'";
+        String[] campos =  {Estabelecimento.EstabelecimentoInfo.EST_ID, Estabelecimento.EstabelecimentoInfo.EST_BANDEIRA,
+                Estabelecimento.EstabelecimentoInfo.EST_NOME, Estabelecimento.EstabelecimentoInfo.EST_ENDERECO,
+                Estabelecimento.EstabelecimentoInfo.EST_LAT, Estabelecimento.EstabelecimentoInfo.EST_LONG,
+                Estabelecimento.EstabelecimentoInfo.EST_ALIMENCACAO, Estabelecimento.EstabelecimentoInfo.EST_BORRACHEIRO,
+                Estabelecimento.EstabelecimentoInfo.EST_CAIXAELETRONICO, Estabelecimento.EstabelecimentoInfo.EST_CONVENIENCIA,
+                Estabelecimento.EstabelecimentoInfo.EST_LAVARAPIDO, Estabelecimento.EstabelecimentoInfo.EST_MECANICO,
+                Estabelecimento.EstabelecimentoInfo.EST_SEMPARAR, Estabelecimento.EstabelecimentoInfo.EST_TROCAOLEO,
+                Estabelecimento.EstabelecimentoInfo.EST_VIAFACIL};
+        db = estabelecimento.getReadableDatabase();
+        cursor = db.query(Estabelecimento.EstabelecimentoInfo.TABLE_NAME, campos, where, null, null, null, null, null);
+
+        if(cursor!=null){
+            cursor.moveToFirst();
+        }
+        db.close();
+        return cursor;
     }
 }
