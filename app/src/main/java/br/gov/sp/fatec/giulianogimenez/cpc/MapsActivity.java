@@ -135,6 +135,8 @@ public class MapsActivity extends AppCompatActivity implements
             String bandeira = postos.getString(postos.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_BANDEIRA));
             if(bandeira.equals("Shell")) {
                 mko.icon(BitmapDescriptorFactory.fromResource(R.drawable.shell_pin));
+            } else if(bandeira.equals("Ipiranga")) {
+                mko.icon(BitmapDescriptorFactory.fromResource(R.drawable.ipiranga_pin));
             }
             mGoogleMap.addMarker(mko);
             postos.moveToNext();
