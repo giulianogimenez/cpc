@@ -169,6 +169,8 @@ public class MapsActivity extends AppCompatActivity implements
                 mko.icon(BitmapDescriptorFactory.fromResource(R.drawable.shell_pin));
             } else if(bandeira.equals("Ipiranga")) {
                 mko.icon(BitmapDescriptorFactory.fromResource(R.drawable.ipiranga_pin));
+            } else if(bandeira.equals("Br")) {
+                mko.icon(BitmapDescriptorFactory.fromResource(R.drawable.br_pin));
             }
             mko.title(postos.getString(postos.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_NOME)));
             mGoogleMap.setInfoWindowAdapter(new MyInfoWindowAdapter());
