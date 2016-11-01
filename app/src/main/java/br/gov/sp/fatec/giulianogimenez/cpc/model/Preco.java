@@ -10,9 +10,8 @@ import br.gov.sp.fatec.giulianogimenez.cpc.DAO.DatabaseInfo;
  * Created by giuliano.gimenez on 30/09/2016.
  */
 public class Preco extends SQLiteOpenHelper {
-
     private static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + PrecoInfo.TABLE_NAME + " (" +
-            PrecoInfo.PRC_ID + " INTEGER PRIMARY KEY," +
+            PrecoInfo.PRC_ID + DatabaseInfo.INT_TYPE + " PRIMARY KEY," +
             PrecoInfo.PRC_VALOR + DatabaseInfo.DECIMAL_TYPE + DatabaseInfo.COMMA_SEP +
             PrecoInfo.PRC_DATACADASTRO + DatabaseInfo.DATETIME_TYPE + DatabaseInfo.COMMA_SEP +
             PrecoInfo.PRC_TIPOCOMBUSTIVEL + DatabaseInfo.TEXT_TYPE + DatabaseInfo.COMMA_SEP +

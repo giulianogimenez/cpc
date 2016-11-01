@@ -29,7 +29,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import br.gov.sp.fatec.giulianogimenez.cpc.controller.EstabelecimentoController;
+import br.gov.sp.fatec.giulianogimenez.cpc.controller.PrecoController;
 import br.gov.sp.fatec.giulianogimenez.cpc.model.Estabelecimento;
+import br.gov.sp.fatec.giulianogimenez.cpc.model.Preco;
 
 public class MapsActivity extends AppCompatActivity implements
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -52,6 +54,7 @@ public class MapsActivity extends AppCompatActivity implements
         @Override
         public View getInfoContents(Marker marker) {
             EstabelecimentoController estabelecimentoController = new EstabelecimentoController(getBaseContext());
+            PrecoController precoController = new PrecoController(getBaseContext());
             Cursor c = estabelecimentoController.carregaPorNome(marker.getTitle());
             if(c.getCount() > 0) {
                 c.moveToFirst();
@@ -59,6 +62,17 @@ public class MapsActivity extends AppCompatActivity implements
                 tvTitle.setText(c.getString(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_NOME)));
                 TextView tvSnippet = ((TextView)myContentsView.findViewById(R.id.snippet));
                 tvSnippet.setText(c.getString(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_ENDERECO)));
+                Cursor precoC = precoController.carregaPrecoEstabelecimento(c.getInt(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_ID)));
+                if(precoC.getCount() > 0) {
+                    precoC.moveToFirst();
+                    if(precoC.getString(precoC.getColumnIndex(Preco.PrecoInfo.PRC_TIPOCOMBUSTIVEL)).equals("Gasolina")) {
+                        TextView txGasolina = ((TextView)myContentsView.findViewById(R.id.txtPrecoGasolina));
+                        txGasolina.setText(precoC.getString(precoC.getColumnIndex(Preco.PrecoInfo.PRC_VALOR)));
+                    } else if(precoC.getString(precoC.getColumnIndex(Preco.PrecoInfo.PRC_TIPOCOMBUSTIVEL)).equals("Etanol")) {
+                        TextView txEtanol = ((TextView)myContentsView.findViewById(R.id.txtPrecoEtanol));
+                        txEtanol.setText(precoC.getString(precoC.getColumnIndex(Preco.PrecoInfo.PRC_VALOR)));
+                    }
+                }
 
             }
             return myContentsView;

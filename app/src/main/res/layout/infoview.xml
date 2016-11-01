@@ -33,9 +33,10 @@
             android:layout_height="100px"
             android:textSize="12dp"
             android:textStyle="bold"/>
-        <Button
-            android:layout_width="match_parent"
+        <TextView
             android:layout_height="wrap_content"
-            android:text="Atualizar Preços"/>
+            android:layout_width="wrap_content"
+            android:textColor="@color/wallet_link_text_light"
+            android:text="Clique neste painel para atualizar os preços." />
     </LinearLayout>
 </LinearLayout>
