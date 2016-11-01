@@ -19,6 +19,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -105,11 +106,43 @@ public class MapsActivity extends AppCompatActivity implements
                 "Av. Dr. João Batista de Souza Soares, 2105 - Cidade Morumbi, São José dos Campos - SP, 12236-660",
                 "-23.242443", "-45.906174",
                 true, true, true, true, false, false, false, false, false, "Shell");
+        estabelecimentoController.inserir("Posto Carrefour",
+                "Av. Dep. Benedito Matarazzo, 5207 - Parque Res. Aquarius",
+                "-23.224164", "-45.906034",
+                false, false, false, false, false, false, false, false, false, "Shell");
+        estabelecimentoController.inserir("Posto Ipê",
+                "Av. Guadalupe, 659 - Jardim America",
+                "-23.231848", "-45.901247",
+                true, false, true, true, false, false, false, true, false, "Shell");
+        estabelecimentoController.inserir("Posto Ipê",
+                "Av. Guadalupe, 659 - Jardim America",
+                "-23.231848", "-45.901247",
+                true, false, true, true, false, false, false, true, false, "Shell");
+        estabelecimentoController.inserir("Posto Ipiranga - Guadalupe",
+                "Av. Guadalupe, 660 - Jardim America",
+                "-23.231626", "-45.901140",
+                true, true, true, true, false, false, false, false, true, "Ipiranga");
+        estabelecimentoController.inserir("Posto Bola Branca - Shell",
+                "Av. Dr. João Batista de Souza Soares, 255 - Jardim Anhembi",
+                "-23.223207", "-45.900820",
+                true, true, true, true, false, false, false, true, false, "Shell");
         postos = estabelecimentoController.carregaDados();
         postos.moveToFirst();
-        mGoogleMap.addMarker(new MarkerOptions().
-                position(new LatLng(postos.getFloat(postos.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_LAT)),
-                        postos.getFloat(postos.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_LONG)))));
+        while(true) {
+            MarkerOptions mko = new MarkerOptions();
+            mko.position(new LatLng(postos.getFloat(postos.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_LAT)),
+                            postos.getFloat(postos.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_LONG))));
+            String bandeira = postos.getString(postos.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_BANDEIRA));
+            if(bandeira.equals("Shell")) {
+                mko.icon(BitmapDescriptorFactory.fromResource(R.drawable.shell_pin));
+            }
+            mGoogleMap.addMarker(mko);
+            postos.moveToNext();
+            if(postos.isAfterLast()) {
+                break;
+            }
+        }
+
     }
 
     @Override
