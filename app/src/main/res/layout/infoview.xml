@@ -20,18 +20,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10dp"/>
-
-            <TextView
-                android:id="@+id/txtPrecoGasolina"
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:textSize="12dp"
-                android:textStyle="bold"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            android:text="Gasolina"/>
+        <TextView
+            android:id="@+id/txtPrecoGasolina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="36dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            android:text="Etanol"/>
         <TextView
             android:id="@+id/txtPrecoEtanol"
             android:layout_width="wrap_content"
-            android:layout_height="100px"
-            android:textSize="12dp"
+            android:layout_height="wrap_content"
+            android:textSize="36dp"
             android:textStyle="bold"/>
         <TextView
             android:layout_height="wrap_content"

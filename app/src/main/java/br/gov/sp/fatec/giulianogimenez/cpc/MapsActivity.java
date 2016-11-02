@@ -65,14 +65,22 @@ public class MapsActivity extends AppCompatActivity implements
                 TextView tvSnippet = ((TextView)myContentsView.findViewById(R.id.snippet));
                 tvSnippet.setText(c.getString(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_ENDERECO)));
                 Cursor precoC = precoController.carregaPrecoEstabelecimento(c.getString(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_NOME)));
-                if(precoC.getCount() > 0) {
-                    precoC.moveToFirst();
+                TextView txGasolina = ((TextView)myContentsView.findViewById(R.id.txtPrecoGasolina));
+                TextView txEtanol = ((TextView)myContentsView.findViewById(R.id.txtPrecoEtanol));
+                txGasolina.setText("--.--");
+                txEtanol.setText("--.--");
+                precoC.moveToFirst();
+                while(true) {
+                    if(precoC.getCount() == 0)
+                        break;
                     if(precoC.getString(precoC.getColumnIndex(Preco.PrecoInfo.PRC_TIPOCOMBUSTIVEL)).equals("Gasolina")) {
-                        TextView txGasolina = ((TextView)myContentsView.findViewById(R.id.txtPrecoGasolina));
-                        txGasolina.setText(precoC.getString(precoC.getColumnIndex(Preco.PrecoInfo.PRC_VALOR)));
+                        txGasolina.setText("R$" + precoC.getString(precoC.getColumnIndex(Preco.PrecoInfo.PRC_VALOR)));
                     } else if(precoC.getString(precoC.getColumnIndex(Preco.PrecoInfo.PRC_TIPOCOMBUSTIVEL)).equals("Etanol")) {
-                        TextView txEtanol = ((TextView)myContentsView.findViewById(R.id.txtPrecoEtanol));
-                        txEtanol.setText(precoC.getString(precoC.getColumnIndex(Preco.PrecoInfo.PRC_VALOR)));
+                        txEtanol.setText("R$" + precoC.getString(precoC.getColumnIndex(Preco.PrecoInfo.PRC_VALOR)));
+                    }
+                    precoC.moveToNext();
+                    if(precoC.isAfterLast()) {
+                        break;
                     }
                 }
 
@@ -190,6 +198,26 @@ public class MapsActivity extends AppCompatActivity implements
                 "Av. Dr. João Batista de Souza Soares, 255 - Jardim Anhembi",
                 "-23.223207", "-45.900820",
                 true, true, true, true, false, false, false, true, false, "Shell");
+        estabelecimentoController.inserir("Posto da Gruta",
+                "Av. Dep. Benedito Matarazzo, 4229 - Jardim das Industrias, São José dos Campos - SP, 12246-840",
+                "-23.234035", "-45.916072",
+                true, true, true, true, true, true, true, true, true, "Ipiranga");
+        estabelecimentoController.inserir("Posto Cassiopéia",
+                "Avenida Cassiopeia, 1024 - Jardim Satelite, São José dos Campos - SP, 12230-010",
+                "-23.228943", "-45.890818",
+                true, false, true, true, false, false, false, false, false, "Ipiranga");
+        estabelecimentoController.inserir("Auto Posto Tak",
+                "Av. Andrômeda, 2477 - Jardim Satelite, São José dos Campos - SP",
+                "-23.235048", "-45.884587",
+                true, false, true, true, false, false, false, false, false, "Ipiranga");
+        estabelecimentoController.inserir("Auto Posto BR - Posto Satélite",
+                "R. Benedito Alves Moreira, 166 - Jardim Satelite, São José dos Campos - SP, 12231-750",
+                "-23.231714", "-45.879705",
+                false, false, true, true, false, false, false, false, false, "Br");
+        estabelecimentoController.inserir("Auto Posto BR - Posto Cata Vento",
+                "Av. Eng. Francisco José Longo, 1324 - Centro, São José dos Campos - SP, 12245-001",
+                "-23.204752", "-45.888366",
+                true, true, true, true, false, false, false, false, false, "Br");
         postos = estabelecimentoController.carregaDados();
         postos.moveToFirst();
         while(true) {

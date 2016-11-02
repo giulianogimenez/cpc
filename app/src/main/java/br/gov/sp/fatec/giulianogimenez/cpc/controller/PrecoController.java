@@ -23,10 +23,17 @@ public class PrecoController {
         dao = new DAOConnection(context);
     }
 
+    public void deletar(String estNome, String tipoCombustivel) {
+        db = dao.getWritableDatabase();
+        String where = Preco.PrecoInfo.EST_NOME + " = '" + estNome + "' and " + Preco.PrecoInfo.PRC_TIPOCOMBUSTIVEL + " = '" + tipoCombustivel + "'";
+        db.delete(Preco.PrecoInfo.TABLE_NAME, where ,null);
+        db.close();
+    }
+
     public String inserir(float valor, String tipoCombustivel, String estNome) {
         ContentValues valores;
         long resultado;
-
+        deletar(estNome, tipoCombustivel);
         db = dao.getWritableDatabase();
         valores = new ContentValues();
         valores.put(Preco.PrecoInfo.EST_NOME, estNome);

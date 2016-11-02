@@ -31,16 +31,23 @@ public class PrecoActivity extends AppCompatActivity {
         title.setText(estabelecimentoCursor.getString(estabelecimentoCursor.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_NOME)));
         TextView snippet = (TextView)this.findViewById(R.id.endereco);
         snippet.setText(estabelecimentoCursor.getString(estabelecimentoCursor.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_ENDERECO)));
+        EditText txtPrecoGasolina = (EditText)this.findViewById(R.id.txtPrecoGasolina);
+        EditText txtPrecoEtanol = (EditText)this.findViewById(R.id.txtPrecoEtanol);
+        txtPrecoGasolina.setText("");
+        txtPrecoEtanol.setText("");
         Cursor precoCursor = precoController.carregaPrecoEstabelecimento(estabelecimentoCursor.getString(estabelecimentoCursor.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_NOME)));
-        if(precoCursor.getCount() > 0) {
-            precoCursor.moveToFirst();
-
+        precoCursor.moveToFirst();
+        while(true) {
+            if(precoCursor.getCount() == 0)
+                break;
             if(precoCursor.getString(precoCursor.getColumnIndex(Preco.PrecoInfo.PRC_TIPOCOMBUSTIVEL)).equals("Gasolina")) {
-                EditText txtPrecoGasolina = (EditText)this.findViewById(R.id.txtPrecoGasolina);
                 txtPrecoGasolina.setText(precoCursor.getString(precoCursor.getColumnIndex(Preco.PrecoInfo.PRC_VALOR)));
             } else if(precoCursor.getString(precoCursor.getColumnIndex(Preco.PrecoInfo.PRC_TIPOCOMBUSTIVEL)).equals("Etanol")) {
-                EditText txtPrecoEtanol = (EditText)this.findViewById(R.id.txtPrecoEtanol);
                 txtPrecoEtanol.setText(precoCursor.getString(precoCursor.getColumnIndex(Preco.PrecoInfo.PRC_VALOR)));
+            }
+            precoCursor.moveToNext();
+            if(precoCursor.isAfterLast()) {
+                break;
             }
         }
         Button salvar = (Button)this.findViewById(R.id.btnSalvarPrecos);
