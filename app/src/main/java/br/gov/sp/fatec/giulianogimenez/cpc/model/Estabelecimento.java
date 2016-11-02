@@ -10,8 +10,8 @@ import br.gov.sp.fatec.giulianogimenez.cpc.DAO.DatabaseInfo;
 /**
  * Created by giuliano.gimenez on 30/09/2016.
  */
-public final class Estabelecimento extends SQLiteOpenHelper {
-    private static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + EstabelecimentoInfo.TABLE_NAME + " (" +
+public final class Estabelecimento {
+    public static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + EstabelecimentoInfo.TABLE_NAME + " (" +
             EstabelecimentoInfo.EST_ID + DatabaseInfo.INT_TYPE + " PRIMARYKEY " + DatabaseInfo.COMMA_SEP +
             EstabelecimentoInfo.EST_NOME + DatabaseInfo.TEXT_TYPE + DatabaseInfo.COMMA_SEP +
             EstabelecimentoInfo.EST_ENDERECO + DatabaseInfo.TEXT_TYPE + DatabaseInfo.COMMA_SEP +
@@ -27,24 +27,8 @@ public final class Estabelecimento extends SQLiteOpenHelper {
             EstabelecimentoInfo.EST_SEMPARAR + DatabaseInfo.INT_TYPE + DatabaseInfo.COMMA_SEP +
             EstabelecimentoInfo.EST_VIAFACIL + DatabaseInfo.INT_TYPE + DatabaseInfo.COMMA_SEP +
             EstabelecimentoInfo.EST_BANDEIRA + DatabaseInfo.TEXT_TYPE + ");";
-    private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + EstabelecimentoInfo.TABLE_NAME;
-
-
-    public Estabelecimento(Context context) {
-        super(context, DatabaseInfo.DATABASE_NAME, null, DatabaseInfo.DATABASE_VERSION);
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE_ENTRIES);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(SQL_DELETE_ENTRIES);
-        onCreate(db);
-    }
+    public static final String SQL_DELETE_ENTRIES =
+            "DROP TABLE IF EXISTS " + Preco.PrecoInfo.TABLE_NAME;
 
     public  static abstract class EstabelecimentoInfo implements BaseColumns {
         public static final String TABLE_NAME = "est_estabelecimento";

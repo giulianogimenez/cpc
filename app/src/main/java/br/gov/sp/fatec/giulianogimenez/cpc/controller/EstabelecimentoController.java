@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import br.gov.sp.fatec.giulianogimenez.cpc.DAO.DAOConnection;
 import br.gov.sp.fatec.giulianogimenez.cpc.model.Estabelecimento;
 
 /**
@@ -13,10 +14,9 @@ import br.gov.sp.fatec.giulianogimenez.cpc.model.Estabelecimento;
 
 public class EstabelecimentoController {
     private SQLiteDatabase db;
-    Estabelecimento estabelecimento;
-
-    public EstabelecimentoController(Context context) {
-        estabelecimento = new Estabelecimento(context);
+    DAOConnection dao;
+    public EstabelecimentoController (Context context) {
+        dao = new DAOConnection(context);    
     }
 
     public String inserir(String nome, String endereco, String latitude, String longitude, boolean conveniencia,
@@ -25,7 +25,7 @@ public class EstabelecimentoController {
         ContentValues valores;
         long resultado;
 
-        db = estabelecimento.getWritableDatabase();
+        db = dao.getWritableDatabase();
         valores = new ContentValues();
         valores.put(Estabelecimento.EstabelecimentoInfo.EST_ALIMENCACAO, alimentacao ? 1 : 0);
         valores.put(Estabelecimento.EstabelecimentoInfo.EST_BANDEIRA, bandeira);
@@ -60,7 +60,7 @@ public class EstabelecimentoController {
                 Estabelecimento.EstabelecimentoInfo.EST_LAVARAPIDO, Estabelecimento.EstabelecimentoInfo.EST_MECANICO,
                 Estabelecimento.EstabelecimentoInfo.EST_SEMPARAR, Estabelecimento.EstabelecimentoInfo.EST_TROCAOLEO,
                 Estabelecimento.EstabelecimentoInfo.EST_VIAFACIL};
-        db = estabelecimento.getReadableDatabase();
+        db = dao.getReadableDatabase();
         cursor = db.query(Estabelecimento.EstabelecimentoInfo.TABLE_NAME, campos, null, null, null, null, null, null);
 
         if(cursor!=null){
@@ -71,7 +71,7 @@ public class EstabelecimentoController {
     }
 
     public void limpaBase() {
-        db = estabelecimento.getWritableDatabase();
+        db = dao.getWritableDatabase();
         db.delete(Estabelecimento.EstabelecimentoInfo.TABLE_NAME, null ,null);
         db.close();
     }
@@ -87,7 +87,7 @@ public class EstabelecimentoController {
                 Estabelecimento.EstabelecimentoInfo.EST_LAVARAPIDO, Estabelecimento.EstabelecimentoInfo.EST_MECANICO,
                 Estabelecimento.EstabelecimentoInfo.EST_SEMPARAR, Estabelecimento.EstabelecimentoInfo.EST_TROCAOLEO,
                 Estabelecimento.EstabelecimentoInfo.EST_VIAFACIL};
-        db = estabelecimento.getReadableDatabase();
+        db = dao.getReadableDatabase();
         cursor = db.query(Estabelecimento.EstabelecimentoInfo.TABLE_NAME, campos, where, null, null, null, null, null);
 
         if(cursor!=null){
