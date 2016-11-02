@@ -131,6 +131,7 @@ public class MapsActivity extends AppCompatActivity implements
             Intent intent = new Intent(this, PrecoActivity.class);
             intent.putExtra("EST_NOME", c.getString(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_NOME)));
             startActivity(intent);
+            marker.hideInfoWindow();
         }
     }
 
@@ -217,6 +218,14 @@ public class MapsActivity extends AppCompatActivity implements
         estabelecimentoController.inserir("Auto Posto BR - Posto Cata Vento",
                 "Av. Eng. Francisco José Longo, 1324 - Centro, São José dos Campos - SP, 12245-001",
                 "-23.204752", "-45.888366",
+                true, true, true, true, false, false, false, false, false, "Br");
+        estabelecimentoController.inserir("Auto Posto BR - Posto Morumbi",
+                "R. Gisele Martins, 401 - Cidade Morumbi, São José dos Campos - SP, 12236-500",
+                "-23.250250", "-45.897123",
+                true, false, true, true, false, false, false, false, false, "Br");
+        estabelecimentoController.inserir("Gascem Posto Petrobrás",
+                "Av. Cidade Jardim, 920 - Floradas de São José, São José dos Campos - SP, 12231-675",
+                "-23.220980", "-45.884819",
                 true, true, true, true, false, false, false, false, false, "Br");
         postos = estabelecimentoController.carregaDados();
         postos.moveToFirst();
