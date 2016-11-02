@@ -121,6 +121,7 @@ public class MapsActivity extends AppCompatActivity implements
             c.moveToFirst();
             precoController.carregaPrecoEstabelecimento(c.getInt(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_ID)));
             Intent intent = new Intent(this, PrecoActivity.class);
+            intent.putExtra("EST_ID", c.getInt(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_ID)));
             startActivity(intent);
         }
     }
