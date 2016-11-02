@@ -64,7 +64,7 @@ public class MapsActivity extends AppCompatActivity implements
                 tvTitle.setText(c.getString(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_NOME)));
                 TextView tvSnippet = ((TextView)myContentsView.findViewById(R.id.snippet));
                 tvSnippet.setText(c.getString(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_ENDERECO)));
-                Cursor precoC = precoController.carregaPrecoEstabelecimento(c.getInt(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_ID)));
+                Cursor precoC = precoController.carregaPrecoEstabelecimento(c.getString(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_NOME)));
                 if(precoC.getCount() > 0) {
                     precoC.moveToFirst();
                     if(precoC.getString(precoC.getColumnIndex(Preco.PrecoInfo.PRC_TIPOCOMBUSTIVEL)).equals("Gasolina")) {
@@ -119,9 +119,9 @@ public class MapsActivity extends AppCompatActivity implements
         Cursor c = estabelecimentoController.carregaPorNome(marker.getTitle());
         if(c.getCount() > 0) {
             c.moveToFirst();
-            precoController.carregaPrecoEstabelecimento(c.getInt(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_ID)));
+            precoController.carregaPrecoEstabelecimento(c.getString(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_NOME)));
             Intent intent = new Intent(this, PrecoActivity.class);
-            intent.putExtra("EST_ID", c.getInt(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_ID)));
+            intent.putExtra("EST_NOME", c.getString(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_NOME)));
             startActivity(intent);
         }
     }

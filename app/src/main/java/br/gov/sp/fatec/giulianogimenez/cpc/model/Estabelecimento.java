@@ -12,8 +12,7 @@ import br.gov.sp.fatec.giulianogimenez.cpc.DAO.DatabaseInfo;
  */
 public final class Estabelecimento {
     public static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + EstabelecimentoInfo.TABLE_NAME + " (" +
-            EstabelecimentoInfo.EST_ID + DatabaseInfo.INT_TYPE + " PRIMARYKEY " + DatabaseInfo.COMMA_SEP +
-            EstabelecimentoInfo.EST_NOME + DatabaseInfo.TEXT_TYPE + DatabaseInfo.COMMA_SEP +
+            EstabelecimentoInfo.EST_NOME + DatabaseInfo.TEXT_TYPE + " PRIMARYKEY " + DatabaseInfo.COMMA_SEP +
             EstabelecimentoInfo.EST_ENDERECO + DatabaseInfo.TEXT_TYPE + DatabaseInfo.COMMA_SEP +
             EstabelecimentoInfo.EST_LAT + DatabaseInfo.TEXT_TYPE + DatabaseInfo.COMMA_SEP +
             EstabelecimentoInfo.EST_LONG + DatabaseInfo.TEXT_TYPE + DatabaseInfo.COMMA_SEP +
@@ -32,7 +31,6 @@ public final class Estabelecimento {
 
     public  static abstract class EstabelecimentoInfo implements BaseColumns {
         public static final String TABLE_NAME = "est_estabelecimento";
-        public static final String EST_ID = "est_id";
         public static final String EST_NOME = "est_nome";
         public static final String EST_ENDERECO = "est_endereco";
         public static final String EST_LAT = "est_lat";

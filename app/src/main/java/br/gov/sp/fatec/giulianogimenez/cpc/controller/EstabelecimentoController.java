@@ -52,7 +52,7 @@ public class EstabelecimentoController {
 
     public Cursor carregaDados(){
         Cursor cursor;
-        String[] campos =  {Estabelecimento.EstabelecimentoInfo.EST_ID, Estabelecimento.EstabelecimentoInfo.EST_BANDEIRA,
+        String[] campos =  { Estabelecimento.EstabelecimentoInfo.EST_BANDEIRA,
                 Estabelecimento.EstabelecimentoInfo.EST_NOME, Estabelecimento.EstabelecimentoInfo.EST_ENDERECO,
                 Estabelecimento.EstabelecimentoInfo.EST_LAT, Estabelecimento.EstabelecimentoInfo.EST_LONG,
                 Estabelecimento.EstabelecimentoInfo.EST_ALIMENCACAO, Estabelecimento.EstabelecimentoInfo.EST_BORRACHEIRO,
@@ -79,7 +79,7 @@ public class EstabelecimentoController {
     public Cursor carregaPorNome(String title) {
         Cursor cursor;
         String where = Estabelecimento.EstabelecimentoInfo.EST_NOME + "='" + title + "'";
-        String[] campos =  {Estabelecimento.EstabelecimentoInfo.EST_ID, Estabelecimento.EstabelecimentoInfo.EST_BANDEIRA,
+        String[] campos =  {Estabelecimento.EstabelecimentoInfo.EST_BANDEIRA,
                 Estabelecimento.EstabelecimentoInfo.EST_NOME, Estabelecimento.EstabelecimentoInfo.EST_ENDERECO,
                 Estabelecimento.EstabelecimentoInfo.EST_LAT, Estabelecimento.EstabelecimentoInfo.EST_LONG,
                 Estabelecimento.EstabelecimentoInfo.EST_ALIMENCACAO, Estabelecimento.EstabelecimentoInfo.EST_BORRACHEIRO,

@@ -23,13 +23,13 @@ public class PrecoController {
         dao = new DAOConnection(context);
     }
 
-    public String inserir(float valor, String tipoCombustivel, Long estId) {
+    public String inserir(float valor, String tipoCombustivel, String estNome) {
         ContentValues valores;
         long resultado;
 
         db = dao.getWritableDatabase();
         valores = new ContentValues();
-        valores.put(Preco.PrecoInfo.EST_ID, estId);
+        valores.put(Preco.PrecoInfo.EST_NOME, estNome);
         valores.put(Preco.PrecoInfo.PRC_TIPOCOMBUSTIVEL, tipoCombustivel);
         valores.put(Preco.PrecoInfo.PRC_VALOR, valor);
         resultado = db.insert(Preco.PrecoInfo.TABLE_NAME, null, valores);
@@ -41,15 +41,14 @@ public class PrecoController {
             return "Registro Inserido com sucesso";
     }
 
-    public Cursor carregaPrecoEstabelecimento(int estabelecimentoId) {
+    public Cursor carregaPrecoEstabelecimento(String estabelecimento) {
         Cursor cursor;
 
         db = dao.getReadableDatabase();
-        String where = Preco.PrecoInfo.EST_ID + " = " + estabelecimentoId;
-        String orderBy = Preco.PrecoInfo.PRC_ID + " DESC";
-        String[] campos = {Preco.PrecoInfo.PRC_ID, Preco.PrecoInfo.PRC_TIPOCOMBUSTIVEL, Preco.PrecoInfo.PRC_VALOR,
-                           Preco.PrecoInfo.EST_ID};
-        cursor = db.query(Preco.PrecoInfo.TABLE_NAME, campos, where, null, null, null, orderBy);
+        String where = Preco.PrecoInfo.EST_NOME + " = '" + estabelecimento + "'";
+        String[] campos = {Preco.PrecoInfo.PRC_TIPOCOMBUSTIVEL, Preco.PrecoInfo.PRC_VALOR,
+                           Preco.PrecoInfo.EST_NOME};
+        cursor = db.query(Preco.PrecoInfo.TABLE_NAME, campos, where, null, null, null, null);
         if(cursor!=null){
             cursor.moveToFirst();
         }
