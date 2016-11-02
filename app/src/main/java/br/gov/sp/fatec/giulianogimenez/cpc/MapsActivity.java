@@ -1,6 +1,7 @@
 package br.gov.sp.fatec.giulianogimenez.cpc;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.location.Criteria;
 import android.location.Location;
@@ -28,13 +29,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import br.gov.sp.fatec.giulianogimenez.cpc.DAO.DAOConnection;
 import br.gov.sp.fatec.giulianogimenez.cpc.controller.EstabelecimentoController;
 import br.gov.sp.fatec.giulianogimenez.cpc.controller.PrecoController;
 import br.gov.sp.fatec.giulianogimenez.cpc.model.Estabelecimento;
 import br.gov.sp.fatec.giulianogimenez.cpc.model.Preco;
 
 public class MapsActivity extends AppCompatActivity implements
-        OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+        OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, GoogleMap.OnInfoWindowClickListener {
 
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
@@ -106,6 +108,21 @@ public class MapsActivity extends AppCompatActivity implements
         buildGoogleApiClient();
 
         mGoogleApiClient.connect();
+        mGoogleMap.setOnInfoWindowClickListener(this);
+
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        EstabelecimentoController estabelecimentoController = new EstabelecimentoController(getBaseContext());
+        PrecoController precoController = new PrecoController(getBaseContext());
+        Cursor c = estabelecimentoController.carregaPorNome(marker.getTitle());
+        if(c.getCount() > 0) {
+            c.moveToFirst();
+            precoController.carregaPrecoEstabelecimento(c.getInt(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_ID)));
+            Intent intent = new Intent(this, PrecoActivity.class);
+            startActivity(intent);
+        }
     }
 
     protected synchronized void buildGoogleApiClient() {
