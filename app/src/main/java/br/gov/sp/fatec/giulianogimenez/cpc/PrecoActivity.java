@@ -60,8 +60,10 @@ public class PrecoActivity extends AppCompatActivity {
                 Intent intent = getIntent();
                 String estNome = intent.getStringExtra("EST_NOME");
                 PrecoController precoController = new PrecoController(getBaseContext());
-                precoController.inserir(Float.parseFloat(txtPrecoGasolina.getText().toString()), "Gasolina", estNome);
-                precoController.inserir(Float.parseFloat(txtPrecoEtanol.getText().toString()), "Etanol", estNome);
+                if(!txtPrecoGasolina.getText().toString().equals(""))
+                    precoController.inserir(Float.parseFloat(txtPrecoGasolina.getText().toString()), "Gasolina", estNome);
+                if(!txtPrecoEtanol.getText().toString().equals(""))
+                    precoController.inserir(Float.parseFloat(txtPrecoEtanol.getText().toString()), "Etanol", estNome);
                 Toast.makeText(getBaseContext(),"Preço salvo com sucesso.",Toast.LENGTH_SHORT).show();
                 finish();
             }
