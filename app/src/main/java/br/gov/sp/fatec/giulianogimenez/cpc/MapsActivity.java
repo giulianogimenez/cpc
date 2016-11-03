@@ -67,8 +67,10 @@ public class MapsActivity extends AppCompatActivity implements
                 Cursor precoC = precoController.carregaPrecoEstabelecimento(c.getString(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_NOME)));
                 TextView txGasolina = ((TextView)myContentsView.findViewById(R.id.txtPrecoGasolina));
                 TextView txEtanol = ((TextView)myContentsView.findViewById(R.id.txtPrecoEtanol));
+                TextView txtServicos = (TextView)myContentsView.findViewById(R.id.txtServicos);
                 txGasolina.setText("--.--");
                 txEtanol.setText("--.--");
+                txtServicos.setText("");
                 precoC.moveToFirst();
                 while(true) {
                     if(precoC.getCount() == 0)
@@ -83,7 +85,24 @@ public class MapsActivity extends AppCompatActivity implements
                         break;
                     }
                 }
-
+                String servicos = "";
+                if(c.getInt(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_ALIMENCACAO)) == 1)
+                    servicos += "+ Alimentação\n";
+                if(c.getInt(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_CONVENIENCIA)) == 1)
+                    servicos += "+ Conveniência\n";
+                if(c.getInt(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_LAVARAPIDO)) == 1)
+                    servicos += "+ Lava Rápido\n";
+                if(c.getInt(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_TROCAOLEO)) == 1)
+                    servicos += "+ Troca de Óleo\n";
+                if(c.getInt(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_CAIXAELETRONICO)) == 1)
+                    servicos += "+ Caixa Eletrônico\n";
+                if(c.getInt(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_MECANICO)) == 1)
+                    servicos += "+ Oficina Mecânica\n";
+                if(c.getInt(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_SEMPARAR)) == 1)
+                    servicos += "+ Sem Parar\n";
+                if(c.getInt(c.getColumnIndex(Estabelecimento.EstabelecimentoInfo.EST_VIAFACIL)) == 1)
+                    servicos += "+ Via Fácil\n";
+                txtServicos.setText(servicos);
             }
             return myContentsView;
         }
