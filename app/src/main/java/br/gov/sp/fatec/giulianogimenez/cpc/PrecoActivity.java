@@ -60,6 +60,8 @@ public class PrecoActivity extends AppCompatActivity {
                 Intent intent = getIntent();
                 String estNome = intent.getStringExtra("EST_NOME");
                 PrecoController precoController = new PrecoController(getBaseContext());
+                precoController.deletar(estNome, "Gasolina");
+                precoController.deletar(estNome, "Etanol");
                 if(!txtPrecoGasolina.getText().toString().equals(""))
                     precoController.inserir(Float.parseFloat(txtPrecoGasolina.getText().toString()), "Gasolina", estNome);
                 if(!txtPrecoEtanol.getText().toString().equals(""))

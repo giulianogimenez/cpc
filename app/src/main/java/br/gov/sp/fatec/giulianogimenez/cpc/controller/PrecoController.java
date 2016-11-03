@@ -33,7 +33,6 @@ public class PrecoController {
     public String inserir(float valor, String tipoCombustivel, String estNome) {
         ContentValues valores;
         long resultado;
-        deletar(estNome, tipoCombustivel);
         db = dao.getWritableDatabase();
         valores = new ContentValues();
         valores.put(Preco.PrecoInfo.EST_NOME, estNome);
